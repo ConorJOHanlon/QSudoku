@@ -1,0 +1,265 @@
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="c.js"></script>
+	<style>
+		body
+		{
+			background: rgb(255,255,255); /* Old browsers */
+			background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(243,243,243,1) 50%, rgba(237,237,237,1) 51%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
+			background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(243,243,243,1) 50%,rgba(237,237,237,1) 51%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
+			background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(243,243,243,1) 50%,rgba(237,237,237,1) 51%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+			font-family:Arial;
+		}
+		.container
+		{
+			width:50%;
+			height:100%;
+			margin:auto;
+		}
+		.subHeader{
+			display:inline-block;
+		}
+		#result {
+		  border-collapse: collapse;
+		  margin:auto;
+		  height:80%;
+		  width:100%;
+		}
+
+		#result td, #result th {
+		  background-color:#FFF;
+		  border: 1px solid #ddd;
+		  padding: 2;
+		  text-align:center;
+		  width:10%;
+		}
+		#result td:nth-child(3)
+		{
+		  border-right: 5px solid #ddd;
+		}
+		#result td:nth-child(6)
+		{
+		  border-right: 5px solid #ddd;
+		}
+		#result tr:nth-child(4)
+		{
+		  border-bottom: 5px solid #ddd;
+		}
+		#result tr:nth-child(7)
+		{
+		  border-bottom: 5px solid #ddd;
+		}
+		#result th {
+		  text-align: center;
+		  background-color: #4CAF50;
+		  color: white;
+		}
+
+		input[type=text] {
+		  background-color:#FFF;
+		  text-align: center;
+		  width: 100%;
+		  height:100%;
+		  box-sizing: border-box;
+		  border: none;
+		}
+		
+		input[type=button], input[type=submit], input[type=reset] {
+		  background-color: #4CAF50;
+		  color:#FFF;
+		  border: none;
+		  padding: 16px 32px;
+		  text-decoration: bold;
+		  margin: 4px 2px;
+		  cursor: pointer;
+		  float:right;
+		  display:inline-block;
+		}
+		.logo{
+			display:block;
+		}
+		.controls{
+			display:inline-block;
+			margin-top:50px;
+			width:100%;
+		}
+	.slider {
+	  -webkit-appearance: none;
+	  width: 80%;
+	  height: 25px;
+	  background: #d3d3d3;
+	  outline: none;
+	  opacity: 0.7;
+	  -webkit-transition: .2s;
+	  transition: opacity .2s;
+	  
+	}
+
+	.slider:hover {
+	  opacity: 1;
+	}
+
+	.slider::-webkit-slider-thumb {
+	  -webkit-appearance: none;
+	  appearance: none;
+	  width: 25px;
+	  height: 25px;
+	  background: #4CAF50;
+	  cursor: pointer;
+	}
+
+	.slider::-moz-range-thumb {
+	  width: 25px;
+	  height: 25px;
+	  background: #4CAF50;
+	  cursor: pointer;
+	}
+	</style>
+	</head>
+	<body>
+		<div class="container">
+			<div id="output">
+			</div>
+			<div class="controls">
+				<input type="button" onclick="checkPuzzle()" value="Submit">
+				<input type="range" min="0" max="100" value="50" class="slider" id="myRange">
+			</div>
+		</div>
+	<!-- Modal -->
+		<div class="modal fade" id="correct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+			<div class="modal-content">
+			  <div class="modal-body">
+			  Correct!
+			  </div>
+			  <div class="modal-footer">
+				<input type="button" value="Close" data-dismiss="modal" />
+			  </div>
+			</div>
+		  </div>
+		</div>
+		<div class="modal fade" id="wrong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+			<div class="modal-content">
+			  <div class="modal-body">
+			   Please try again...
+			  </div>
+			  <div class="modal-footer">
+				<input type="button" value="Close" data-dismiss="modal" />
+			  </div>
+			</div>
+		  </div>
+		</div>
+	</body>
+	
+</html>
+<script type="text/javascript">
+	var output=document.getElementById("output");
+	
+	if ("WebSocket" in window){
+		var ws = new WebSocket("ws://localhost:5011");
+		ws.onopen = function(){
+		ws.send("renderTable[50]"); 
+		};
+		ws.onmessage=function(e){
+			var outputHTML,data = JSON.parse(e.data);
+			if (typeof data == "object") {
+				if (data.length) {
+					outputHTML = generateTableHTML(data);
+				} else {
+					for (var x in data)
+						outputHTML += x + " | " + data[x] + "<br />";
+				}
+				output.innerHTML = outputHTML;
+			} else {
+				if(data == true)
+				{
+					$('#correct').modal('show');
+				}
+				else
+				{
+					$('#wrong').modal('show');
+				}
+			};
+		}
+		ws.onclose = function(){
+		};
+	}
+	else 
+	{
+		alert("Not Supported");
+	}
+	
+	function checkPuzzle()
+	{
+		var res = "";
+		var table = output.children[0];
+		var valid = true;
+		for(var i=0; i < table.rows.length; i++)
+		{
+			for(var j=0; j< table.rows[i].cells.length; j++)
+			{
+				var cell = table.rows[i].cells[j];
+				var val;
+				if(cell.children.length > 0)
+					val = cell.children[0].value;
+				else
+					val =  cell.innerText;
+				if(val !== undefined && val !== "" )
+				{
+					res += val+" ";
+				}
+				else
+				{
+					jQuery("#"+cell.children[0].id).animate({backgroundColor: '#ffa3a3'}, 500);
+					valid = false;
+				}
+			}
+		}
+		
+		if(valid)
+			ws.send("checkPuzzle["+res+"]"); 
+	}
+	
+	function enterVal(ident)
+	{
+		$("#"+ident.id).animate({backgroundColor: '#FFF'}, 500);
+	}
+	
+	function generateTableHTML(data)
+	{
+		var tableHTML = '<table id="result" border="0"><tr>';
+		tableHTML += '</tr>';
+		for (var i = 0; i < data.length; i++) {
+			tableHTML += '<tr>';
+			for (var x in data[0]) {
+				var cellData;
+				cellData = data[i][x];
+				if(cellData != null)
+				{
+					var ident = "output_"+i+"_"+x;
+					tableHTML += '<td id ='+ident+'>' + cellData  + '</td>';
+				}
+				else
+				{
+					var ident = "input_"+i+"_"+x;
+					tableHTML += '<td><input id ='+ident+' type="text" onkeydown="enterVal('+ident+')"></input></td>';
+				}
+			}
+			tableHTML += '</tr>';
+		}
+		tableHTML += '</table>';
+		return tableHTML;
+	}
+	var slider = document.getElementById("myRange");
+	slider.oninput = function() 
+	{
+		ws.send("renderTable["+slider.value+"]"); 
+	}
+</script>
